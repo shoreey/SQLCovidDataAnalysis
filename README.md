@@ -38,37 +38,7 @@ This project analyzes global COVID-19 data with a focus on comparing worldwide t
 - Time-series data preparation for forecasting models.
 - Aggregation queries for demographic analysis.
 
-#### Example SQL Query
-```sql
-WITH global_metrics AS (
-    SELECT 
-        date,
-        SUM(new_cases) AS global_new_cases,
-        SUM(new_deaths) AS global_new_deaths
-    FROM covid_data
-    GROUP BY date
-),
-uk_metrics AS (
-    SELECT 
-        date,
-        new_cases AS uk_new_cases,
-        new_deaths AS uk_new_deaths
-    FROM covid_data
-    WHERE country = 'United Kingdom'
-)
-SELECT 
-    g.date,
-    g.global_new_cases,
-    g.global_new_deaths,
-    u.uk_new_cases,
-    u.uk_new_deaths,
-    (u.uk_new_cases * 1.0 / g.global_new_cases) AS uk_case_proportion,
-    (u.uk_new_deaths * 1.0 / g.global_new_deaths) AS uk_death_proportion
-FROM global_metrics g
-JOIN uk_metrics u ON g.date = u.date
-ORDER BY g.date;
-
-## Tableau Visualizations
+  ## Tableau Visualizations
 
 ### World Comparison Dashboard
 - Interactive choropleth map showing infection rates by country
@@ -115,4 +85,36 @@ END
 - Git for version control and collaboration
 
 
+
+
+
+#### Example SQL Query
+```sql
+WITH global_metrics AS (
+    SELECT 
+        date,
+        SUM(new_cases) AS global_new_cases,
+        SUM(new_deaths) AS global_new_deaths
+    FROM covid_data
+    GROUP BY date
+),
+uk_metrics AS (
+    SELECT 
+        date,
+        new_cases AS uk_new_cases,
+        new_deaths AS uk_new_deaths
+    FROM covid_data
+    WHERE country = 'United Kingdom'
+)
+SELECT 
+    g.date,
+    g.global_new_cases,
+    g.global_new_deaths,
+    u.uk_new_cases,
+    u.uk_new_deaths,
+    (u.uk_new_cases * 1.0 / g.global_new_cases) AS uk_case_proportion,
+    (u.uk_new_deaths * 1.0 / g.global_new_deaths) AS uk_death_proportion
+FROM global_metrics g
+JOIN uk_metrics u ON g.date = u.date
+ORDER BY g.date;
 
