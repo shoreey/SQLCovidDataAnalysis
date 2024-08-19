@@ -59,15 +59,6 @@ This project analyzes global COVID-19 data with a focus on comparing worldwide t
 - Stacked bar charts for mortality rates across different socioeconomic groups
 - Scatter plot correlating population density with death rates
 
-### Tableau Calculated Field Example
-```sql
-// Calculating excess mortality
-IF [Observed Deaths] > [Expected Deaths] THEN
-    ([Observed Deaths] - [Expected Deaths]) / [Expected Deaths]
-ELSE
-    0
-END
-
 
 
 ## Key Findings
@@ -84,11 +75,16 @@ END
 - Python for data cleaning and time series forecasting
 - Git for version control and collaboration
 
+### Tableau Calculated Field Example
+```sql
+// Calculating excess mortality
+IF [Observed Deaths] > [Expected Deaths] THEN
+    ([Observed Deaths] - [Expected Deaths]) / [Expected Deaths]
+ELSE
+    0
+END
 
-
-
-
-#### Example SQL Query
+**#### Example SQL Query**
 ```sql
 WITH global_metrics AS (
     SELECT 
